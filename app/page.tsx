@@ -1,103 +1,136 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState, useEffect } from "react"
+import Link from "next/link"
+
+export default function LandingPage() {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden relative">
+      {/* Animated background elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 opacity-10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500 opacity-10 rounded-full blur-3xl animate-pulse delay-500"></div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        {/* Floating particles */}
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-white opacity-20 rounded-full animate-bounce"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        {/* Main Logo/Brand */}
+        <div
+          className={`text-center transition-all duration-2000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
+          <Link href="/products" className="group cursor-pointer block">
+            <div className="relative mb-8">
+              <div className="absolute -inset-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-lg blur-2xl opacity-30 group-hover:opacity-60 transition duration-1000 animate-pulse"></div>
+              <h1 className="relative text-6xl md:text-8xl lg:text-9xl font-bold gradient-text hover:scale-105 transition-transform duration-500">
+                AMAZONIA
+              </h1>
+              <div className="absolute top-0 right-0 transform translate-x-4 -translate-y-4">
+                <span className="text-yellow-400 text-2xl animate-spin inline-block">✨</span>
+              </div>
+            </div>
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 group-hover:text-white transition-colors duration-300 font-light">
+              Your Premium Shopping Destination
+            </p>
+            <div className="flex items-center justify-center space-x-2 text-gray-400 group-hover:text-purple-300 transition-colors duration-300">
+              <span className="text-yellow-400">⭐</span>
+              <span className="text-sm">Click to explore amazing products</span>
+              <span className="text-yellow-400">⭐</span>
+            </div>
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        {/* Feature Cards */}
+        <div
+          className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 transition-all duration-2000 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 hover:scale-105 hover:rotate-1">
+            <div className="text-4xl mb-3 animate-bounce">⚡</div>
+            <h3 className="text-white font-semibold mb-2">Lightning Fast</h3>
+            <p className="text-gray-300 text-sm">Instant search and seamless browsing experience</p>
+          </div>
+          <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 hover:scale-105 hover:-rotate-1">
+            <div className="text-4xl mb-3 animate-pulse">🛡️</div>
+            <h3 className="text-white font-semibold mb-2">Secure Shopping</h3>
+            <p className="text-gray-300 text-sm">Your data and payments are always protected</p>
+          </div>
+          <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300 hover:scale-105 hover:rotate-1">
+            <div className="text-4xl mb-3 animate-bounce delay-300">🚚</div>
+            <h3 className="text-white font-semibold mb-2">Fast Delivery</h3>
+            <p className="text-gray-300 text-sm">Get your orders delivered at lightning speed</p>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+        <div
+          className={`grid grid-cols-3 gap-8 mb-12 transition-all duration-2000 delay-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <div className="text-center">
+            <div className="text-3xl font-bold text-purple-400 mb-1 animate-pulse">1M+</div>
+            <div className="text-gray-400 text-sm">Happy Customers</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-pink-400 mb-1 animate-pulse delay-200">50K+</div>
+            <div className="text-gray-400 text-sm">Products</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-blue-400 mb-1 animate-pulse delay-400">99.9%</div>
+            <div className="text-gray-400 text-sm">Uptime</div>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div
+          className={`transition-all duration-2000 delay-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <Link href="/products">
+            <button className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 text-white px-12 py-6 text-xl rounded-full shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-110 group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <span className="relative flex items-center">
+                <span className="animate-bounce mr-3">🛍️</span>
+                Start Shopping Now
+                <span className="ml-3 group-hover:translate-x-2 transition-transform duration-300">→</span>
+              </span>
+            </button>
+          </Link>
+        </div>
+
+        {/* Floating elements */}
+        <div className="absolute top-20 left-20 animate-bounce delay-1000">
+          <span className="text-yellow-400 text-2xl animate-spin inline-block">⭐</span>
+        </div>
+        <div className="absolute bottom-20 right-20 animate-bounce delay-2000">
+          <span className="text-purple-400 text-2xl animate-pulse">🛍️</span>
+        </div>
+        <div className="absolute top-1/3 right-20 animate-bounce delay-1500">
+          <span className="text-pink-400 text-xl animate-ping">✨</span>
+        </div>
+        <div className="absolute bottom-1/3 left-20 animate-bounce delay-2500">
+          <span className="text-blue-400 text-xl animate-pulse">⚡</span>
+        </div>
+      </div>
+
+      {/* Bottom gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent"></div>
     </div>
-  );
+  )
 }
